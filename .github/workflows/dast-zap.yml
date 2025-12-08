@@ -22,7 +22,8 @@ jobs:
       - name: Install lab dependencies
         working-directory: idor
         run: |
-          npm init -y npm install express
+          npm init -y 
+          npm install express
 
       - name: Start vulnerable app
         working-directory: idor
