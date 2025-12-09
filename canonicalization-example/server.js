@@ -4,6 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const { body, validationResult } = require('express-validator');
 
+const app = express();
+
 app.use((req, res, next) => { //fix to set Permissions Policy Header vulnerability
   res.setHeader(
     "Permissions-Policy",
@@ -17,7 +19,6 @@ app.use((req, res, next) =>{ //fix CSP:Failure to Define Directive with No Fallb
   next();
 });
 
-const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
