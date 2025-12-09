@@ -19,6 +19,17 @@ app.use((req, res, next) =>{ //fix CSP:Failure to Define Directive with No Fallb
   next();
 });
 
+app.use((req, res, next) => { //Fix Cross-Origin-Resource-Policy Header vulnerability
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+});
+
+app.use((req, res, next) => {
+  res.header("X-Content-Type-Options", "nosniff");
+  next();
+})
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
