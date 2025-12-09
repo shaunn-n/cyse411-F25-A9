@@ -38,6 +38,7 @@ jobs:
           target: 'http://localhost:4000'
           fail_action: true  # fail job if ZAP finds alerts
           allow_issue_writing: false # don't auto-open GitHub Issues
+          artifact_name: "zap-canonicalization-report"
 
   # ZAP idor scan
   zap_scan_idor:
@@ -71,6 +72,7 @@ jobs:
           target: 'http://localhost:3000'
           fail_action: true  # fail job if ZAP finds alerts
           allow_issue_writing: false # don't auto-open GitHub Issues
+          artifact_name: "zap-idor-report"
 
   # ZAP fastbank-auth-lab scan
   zap_scan_fastbank_auth_lab:
@@ -103,3 +105,4 @@ jobs:
           target: 'http://localhost:3001'
           fail_action: true  # fail job if ZAP finds alerts
           allow_issue_writing: false # don't auto-open GitHub Issues
+          artifact_name: "zap-fastbank-auth-lab-report"
