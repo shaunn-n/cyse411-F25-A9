@@ -121,7 +121,7 @@ app.post("/api/logout", (req, res) => {
 });
 
 app.use((req, res) => {
-  res.status(404).send("Not found");
+  res.status(404).send("Sorry Can't Find That!");
 });
 
 app.listen(PORT, () => {
