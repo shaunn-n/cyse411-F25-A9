@@ -21,6 +21,13 @@ app.use((req, res, next) =>{ //fix CSP:Failure to Define Directive with No Fallb
   next();
 });
 
+app.use((req, res, next) =>{ //fix cache related informational vulnerabilities
+  res.header("Cache-Control", "no-cache, no-store, must-revalidate, private");
+  res.header("Pragma", "no-cache");
+  res.header("Expires", "0");
+  next();
+});
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
