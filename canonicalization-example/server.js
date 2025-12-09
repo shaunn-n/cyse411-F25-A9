@@ -29,7 +29,14 @@ app.use((req, res, next) => { //Fix Cross-Origin-Resource-Policy Header vulnerab
 app.use((req, res, next) => { //Fix X-Content-Type-Options Header vulnerability
   res.header("X-Content-Type-Options", "nosniff");
   next();
-})
+});
+
+app.use((req, res, next) =>{ //fix cache related informational vulnerabilities
+  res.header("Cache-Control", "no-cache, no-store, must-revalidate, private");
+  res.header("Pragma", "no-cache");
+  res.header("Expires", "0");
+  next();
+});
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
