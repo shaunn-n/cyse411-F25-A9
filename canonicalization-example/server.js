@@ -9,6 +9,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.disable('x-powered-by'); //fix to suppress "X-Powered-By: Express" information leak
+
+app.use((req, res, next) => { //fix to set Permissions Policy Header vulnerability
+  res.setHeader(
+    "Permissions-Policy",
+    'geolocation=(), interest-cohort=()'
+  );
+  next();
+});
+
+app.use((req, res, next) =>{ //fix CSP:Failure to Define Directive with No Fallback
+  res.set("Content-Security-Policy", "default-src 'self'; frame-ancestors 'none'; form-action 'none'");
+  next();
+});
+
+
 const BASE_DIR = path.resolve(__dirname, 'files');
 if (!fs.existsSync(BASE_DIR)) fs.mkdirSync(BASE_DIR, { recursive: true });
 
@@ -71,6 +87,10 @@ app.post('/setup-sample', (req, res) => {
     fs.writeFileSync(p, samples[k], 'utf8');
   });
   res.json({ ok: true, base: BASE_DIR });
+});
+
+app.use((req, res) => { //had to set up 404 error handling too, ZAP on GitHub stated issues with 404 path not found handling
+  res.status(404).send("Sorry Can't Find That!");
 });
 
 // Only listen when run directly (not when imported by tests)
