@@ -120,7 +120,7 @@ app.post("/api/logout", (req, res) => {
   res.json({ success: true });
 });
 
-app.use((req, res) => {
+app.use((req, res) => { //had to set up 404 error handling too, ZAP on GitHub stated issues with 404 path not found handling
   res.status(404).send("Sorry Can't Find That!");
 });
 
