@@ -88,8 +88,8 @@ app.post('/read-no-validate', (req, res) => {
   //fixing code with path check, vulnerability found in SAST Scan
   //this code is from the slides, but modified for this situation
   
-  // nosemgrep: javascript.express.security.audit.express-path-join-resolve-traversal.express-path-join-resolve-traversal
-  const normalizedPath = path.resolve(BASE_DIR, filename);
+  // nosemgrep: CWE-22
+  const normalizedPath = path.resolve(BASE_DIR, filename); // nosemgrep: CWE-22
   
   //added nosemgrep above because it is alerting to a false positive
   //path.resolve() is used in a secure manor in this situation since we are checking the path below
