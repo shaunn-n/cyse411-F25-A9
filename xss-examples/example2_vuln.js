@@ -1,4 +1,9 @@
 // vulnerable: dangerouslySetInnerHTML
+
+//fix based on code given in slides
+import DOMPurify from 'dompurify';
+
 function Comment({ html }) {
-  return <div dangerouslySetInnerHTML={{ __html: html }} />;
+  const cleanInput = DOMPurify.sanitize(html)
+  return <div dangerouslySetInnerHTML={{ __html: cleanInput }} />;
 }

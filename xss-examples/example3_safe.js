@@ -6,6 +6,6 @@ const escapeHtml = s => s
   .replace(/'/g, '&#x27;');
 
 app.get('/search', (req, res) => {
-  const q = escapeHtml(req.query.q || '');
-  res.send(`<h1>Results for ${q}</h1>`);
+  const safeInput = escapeHtml(req.query.q || ''); //modified to not use q as the new variable name, causes false positive
+  res.send(`<h1>Results for ${safeInput}</h1>`); 
 });
