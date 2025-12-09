@@ -8,13 +8,11 @@ function sanitizeFunc(input){
   .replace(/"/g, '&quot;')
   .replace(/'/g, '&#x27;');
 
-  return sanitizedInput;
+  return res.send(`<h1>Results for ${sanitizedInput}</h1>`);;
 }
 
 app.get('/search', (req, res) => {
   const q = req.query.q || '';
 
-  const cleanedInput = sanitizeFunc(q) //calling function
-
-  res.send(`<h1>Results for ${sanitizeFunc(q)}</h1>`);
+  sanitizeFunc(q) //calling function
 });
