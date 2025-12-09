@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+app.disable('x-powered-by'); //fix to suppress "X-Powered-By: Express" information leak
+
 app.use(express.json());
 
 // Fake "database"
