@@ -24,7 +24,7 @@ app.use((req, res, next) => { //fix to set Permissions Policy Header vulnerabili
 });
 
 app.use((req, res, next) =>{ //fix CSP:Failure to Define Directive with No Fallback
-  res.set("Content-Security-Policy", "default-src 'self'");
+  res.set("Content-Security-Policy", "default-src 'self'; frame-ancestors 'none'; form-action 'none'");
   next();
 });
 
