@@ -87,7 +87,8 @@ app.post('/read-no-validate', (req, res) => {
 
   //fixing code with path check, vulnerability found in SAST Scan
   //this code is from the slides, but modified for this situation
-  const normalizedPath = path.resolve(BASE_DIR, filename);
+  secureFileName = filename;
+  const normalizedPath = path.resolve(BASE_DIR, secureFileName);
 
   if (!normalizedPath.startsWith(BASE_DIR + path.sep)){
     return res.status(404).json({ error: 'Path Traversal Attempt Detected'})
