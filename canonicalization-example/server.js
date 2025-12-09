@@ -83,7 +83,16 @@ app.post(
 // Vulnerable route (demo)
 app.post('/read-no-validate', (req, res) => {
   const filename = req.body.filename || '';
-  const joined = path.join(BASE_DIR, filename); // intentionally vulnerable
+  //const joined = path.join(BASE_DIR, filename); // intentionally vulnerable
+
+  //fixing code with path check, vulnerability found in SAST Scan
+  //this code is from the slides, but modified for this situation
+  const normalizedPath = path.resolve(BASE_DIR, filename);
+
+  if (!normalizedPath.startsWith(BASE_DIR + path.sep)){
+    return res.status(404).json({ error: 'Path Traversal Attempt Detected'})
+  }
+
   if (!fs.existsSync(joined)) return res.status(404).json({ error: 'File not found', path: joined });
   const content = fs.readFileSync(joined, 'utf8');
   res.json({ path: joined, content });
