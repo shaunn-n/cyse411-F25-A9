@@ -13,6 +13,22 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static("public"));
 
+app.disable('x-powered-by'); //fix to suppress "X-Powered-By: Express" information leak
+
+app.use((req, res, next) => { //fix to set Permissions Policy Header vulnerability
+  res.setHeader(
+    "Permissions-Policy",
+    'geolocation=(), interest-cohort=()'
+  );
+  next();
+});
+
+app.use((req, res, next) =>{ //fix CSP:Failure to Define Directive with No Fallback
+  res.set("Content-Security-Policy", "default-src 'self'");
+  next();
+});
+
+
 /**
  * VULNERABLE FAKE USER DB
  * For simplicity, we start with a single user whose password is "password123".
