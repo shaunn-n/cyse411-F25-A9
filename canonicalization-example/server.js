@@ -4,13 +4,6 @@ const path = require('path');
 const fs = require('fs');
 const { body, validationResult } = require('express-validator');
 
-const app = express();
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.disable('x-powered-by'); //fix to suppress "X-Powered-By: Express" information leak
-
 app.use((req, res, next) => { //fix to set Permissions Policy Header vulnerability
   res.setHeader(
     "Permissions-Policy",
@@ -23,6 +16,15 @@ app.use((req, res, next) =>{ //fix CSP:Failure to Define Directive with No Fallb
   res.set("Content-Security-Policy", "default-src 'self'; frame-ancestors 'none'; form-action 'none'");
   next();
 });
+
+const app = express();
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.disable('x-powered-by'); //fix to suppress "X-Powered-By: Express" information leak
+
+
 
 
 const BASE_DIR = path.resolve(__dirname, 'files');
