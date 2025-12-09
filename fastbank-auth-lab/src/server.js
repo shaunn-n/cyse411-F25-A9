@@ -8,11 +8,6 @@ const bcrypt = require("bcrypt");
 const app = express();
 const PORT = 3001;
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(express.static("public"));
-
 app.disable('x-powered-by'); //fix to suppress "X-Powered-By: Express" information leak
 
 app.use((req, res, next) => { //fix to set Permissions Policy Header vulnerability
@@ -27,6 +22,12 @@ app.use((req, res, next) =>{ //fix CSP:Failure to Define Directive with No Fallb
   res.set("Content-Security-Policy", "default-src 'self'; frame-ancestors 'none'; form-action 'none'");
   next();
 });
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(express.static("public"));
+
 
 
 /**
