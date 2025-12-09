@@ -22,10 +22,11 @@ app.use((req, res, next) =>{ //fix CSP:Failure to Define Directive with No Fallb
 app.use((req, res, next) => { //Fix Cross-Origin-Resource-Policy Header vulnerability
   res.header("Cross-Origin-Embedder-Policy", "require-corp");
   res.header("Cross-Origin-Opener-Policy", "same-origin");
+  res.header("Cross-Origin-Resource-Policy", "same-origin");
   next();
 });
 
-app.use((req, res, next) => {
+app.use((req, res, next) => { //Fix X-Content-Type-Options Header vulnerability
   res.header("X-Content-Type-Options", "nosniff");
   next();
 })
