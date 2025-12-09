@@ -87,7 +87,7 @@ app.post('/read-no-validate', (req, res) => {
 
   //fixing code with path check, vulnerability found in SAST Scan
   //this code is from the slides, but modified for this situation
-  const normalizedPath = path.resolve(BASE_DIR, filename); // nosemgrep
+  const normalizedPath = path.resolve(BASE_DIR, filename); // nosemgrep: rule-id
   //added nosemgrep above because it is alerting to a false positive
   //path.resolve() is used in a secure manor in this situation. Semgrep is just alerting to the use of a possibly
   //non-validated input [filename]
