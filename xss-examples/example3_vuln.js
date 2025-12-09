@@ -16,5 +16,5 @@ app.get('/search', (req, res) => {
 
   const cleanedInput = sanitizeFunc(q) //calling function
 
-  res.send(`<h1>Results for ${cleanedInput}</h1>`);
+  res.send(`<h1>Results for ${sanitizeFunc(q)}</h1>`);
 });

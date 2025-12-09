@@ -7,5 +7,5 @@ const escapeHtml = s => s
 
 app.get('/search', (req, res) => {
   const safeInput = escapeHtml(req.query.q || ''); //modified to not use q as the new variable name, causes false positive
-  res.send(`<h1>Results for ${safeInput}</h1>`); 
+  res.send(`<h1>Results for ${escapeHtml(req.query.q || '')}</h1>`); 
 });
