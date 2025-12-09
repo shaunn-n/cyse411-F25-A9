@@ -120,6 +120,10 @@ app.post("/api/logout", (req, res) => {
   res.json({ success: true });
 });
 
+app.use((req, res) => {
+  res.status(404).send("Not found");
+});
+
 app.listen(PORT, () => {
   console.log(`FastBank Auth Lab running at http://localhost:${PORT}`);
 });
