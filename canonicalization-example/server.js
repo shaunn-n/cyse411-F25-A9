@@ -89,7 +89,7 @@ app.post('/read-no-validate', (req, res) => {
   //this code is from the slides, but modified for this situation
   
   // nosem
-  const normalizedPath = path.resolve(BASE_DIR, filename); // nosem
+  const normalizedPath = resolveSafe(BASE_DIR, filename) // nosem
   
   //added nosemgrep above because it is alerting to a false positive
   //path.resolve() is used in a secure manor in this situation since we are checking the path below
